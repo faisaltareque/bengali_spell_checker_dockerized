@@ -1,7 +1,13 @@
 import codecs
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.encoders import jsonable_encoder
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
 
 
 class Word(BaseModel):
