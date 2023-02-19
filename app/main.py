@@ -4,6 +4,8 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.encoders import jsonable_encoder
 
+app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*']
@@ -49,8 +51,6 @@ def known_word(words):
 
 def candidates(word):
     return (known_word([word]) or known_word(edits_distance_1(word)) or known_word(edits_distance_2(word)) or [word])
-
-app = FastAPI()
 
 @app.get("/")
 def hello():
