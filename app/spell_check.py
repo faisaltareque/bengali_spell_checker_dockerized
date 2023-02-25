@@ -6,8 +6,10 @@ class SpellChecker:
         words_list = []
         with codecs.open('vocab.txt', mode='r', encoding='utf-8') as f:
             for item in f:
-                words_list.append(item.strip())                
-        words_dictionary = dict.fromkeys(words_list, True)
+                words_list.append(item.split(' ')[0])                
+        words_dictionary = {}
+        for i, word in enumerate(words_list):
+            words_dictionary[word] = i
         del words_list
         gc.collect()
         self.letters = 'ঁংঃঅআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহ়ঽািীুূৃৄেৈোৌ্ৎৗড়ঢ়য়'
@@ -38,6 +40,17 @@ class SpellChecker:
                 known_list.append(item)
         return set(known_list)
     
+        
+    def top_K_candidates(self, word, K):
+        candidates = self.candidates(word)
+        candidates_list = []
+        for item in candidates:
+            candidates_list.append((self.words_dictionary[item], item))
+        candidates_list.sort(reverse=False)
+        if K > len(candidates_list):
+            K = len(candidates_list)
+        return [item[1] for item in candidates_list[:K]]   
+     
 
     def candidates(self, word):
         return (self.known_word([word]) or self.known_word(self.edits_distance_1(word)) or self.known_word(self.edits_distance_2(word)) or [word])
