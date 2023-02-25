@@ -11,10 +11,5 @@
 */.ipynb_checkpoints/
 */.vscode/
 */.idea/
-*/.DS_Store
-*/.git/
-*/.gitignore
-*/.gitattributes
-*/
 test/
 testing/
